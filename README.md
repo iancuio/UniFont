@@ -197,7 +197,7 @@ The font must be put under **assets/fonts** or else it will not work.
 
 **Example:**
 
-[fonts]https://cloud.githubusercontent.com/assets/13288065/9327167/94e73fe8-45a7-11e5-8b8b-cc384f37bed8.png
+[fonts](https://cloud.githubusercontent.com/assets/13288065/9327167/94e73fe8-45a7-11e5-8b8b-cc384f37bed8.png)
 
 Now choose your desired font and set it to **UniFont:**(Here I will chose the "OpenSansRegular.ttf")
 
