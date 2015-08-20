@@ -18,7 +18,7 @@ repositories {
 Then, you need to add the following line to your **dependencies {}** in your **build.gradle:**
 
 ```
-compile 'com.iancuio.libraries:unifont:1.01'
+compile 'com.iancuio.libraries:unifont:1.02'
 ```
 
 Now you're ready to use it! Now let's talk a bit about how to use it.
@@ -28,7 +28,7 @@ Now you're ready to use it! Now let's talk a bit about how to use it.
 To use **UniFont**, you have to add the following line of code to you **Activity/Fragment onCreate{}/onViewCreated{}:**
 
 ```
-UniFont.with(context).initialize(ViewGroup/Container).setFont("YourFont.ttf").apply();
+UniFont.with(context).setFont("YourFont.ttf").apply(ViewGroup/Container);
 ```
 
 In your Activity **onCreate{}:**
@@ -39,7 +39,7 @@ In your Activity **onCreate{}:**
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         
-        UniFont.with(this).initialize(ViewGroup/Container).setFont("YourFont.ttf").apply();
+        UniFont.with(this).setFont("YourFont.ttf").apply(ViewGroup/Container);
     }
 ```
 
@@ -50,7 +50,7 @@ Or in your Fragment **onViewCreated{}:**
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         
-        UniFont.with(getActivity()).initialize(ViewGroup/Container).setFont("YourFont.ttf").apply();
+        UniFont.with(getActivity()).setFont("YourFont.ttf").apply(ViewGroup/Container);
     }
 ```
 
@@ -58,7 +58,42 @@ Now let's explain it a bit.
 
 **with(context)** - With this method you give the context to UniFont.
 
-**initialize(ViewGroup/Container)** - With this method you give to UniFont the Layout/Container in which you want to set the font in.
+**setFont("YourFont.ttf")** - This sets the font you want to use in your chosen Container/Layout.
+
+**IMPORTANT!!**
+
+The font must be put under **assets/fonts** or else it will not work.
+
+**Example:**
+
+![fonts](https://cloud.githubusercontent.com/assets/13288065/9327167/94e73fe8-45a7-11e5-8b8b-cc384f37bed8.png)
+
+Now choose your desired font and set it to **UniFont:**(Here I will chose the "OpenSansRegular.ttf")
+
+In your Activity **onCreate{}:**
+
+```
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        
+        UniFont.with(this).setFont("Kikelet.ttf").apply(container);
+    }
+```
+
+Or in your Fragment **onViewCreated{}:**
+
+```
+ @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        
+        UniFont.with(getActivity()).setFont("Kikelet.ttf").apply(container);
+    }
+```
+
+**apply(ViewGroup/Container)** - With this method you give to UniFont the Layout/Container in which you want to set the font in and apply the changes.
 
 **Example:**
 
@@ -115,7 +150,7 @@ In your Activity **onCreate{}:**
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         
-        UniFont.with(this).initialize(container).setFont("YourFont.ttf").apply();
+        UniFont.with(this).setFont("YourFont.ttf").apply(ViewGroup/Container);
     }
 ```
 
@@ -126,7 +161,7 @@ Or in your Fragment **onViewCreated{}:**
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         
-        UniFont.with(getActivity()).initialize(container).setFont("YourFont.ttf").apply();
+        UniFont.with(getActivity()).setFont("YourFont.ttf").apply(ViewGroup/Container);
     }
 ```
 
@@ -176,53 +211,20 @@ android:id="@+id/subContainer"
 You can do the same as earlier. The **"subContainer"** will have your set font, and the **"container"** will be left untouched.
 
 ```
-UniFont.with(this/getActivity()).initialize(subContainer).setFont("YourFont.ttf").apply();
+UniFont.with(this/getActivity()).setFont("YourFont.ttf").apply(subContainer);
 ```
 
 **Additionally additionally**, you can set the two or more different fonts for you main layout and the sub-layouts in your XML.
 The font will be overwritten in the order of calling **UniFont:**
 
 ```
-UniFont.with(this/getActivity()).initialize(container).setFont("OpenSansRegular.ttf").apply();
-UniFont.with(this/getActivity()).initialize(subContainer).setFont("Kikelet.ttf").apply();
+UniFont.with(this/getActivity()).setFont("OpenSansRegular.ttf").apply(container);
+UniFont.with(this/getActivity()).setFont("Kikelet.ttf").apply(container);
 ```
 
 The **"container"** and all his children will have the "OpenSansRegular.ttf" font, but the **"subContainer"** will have "Kikelet.ttf" font, overriding the previous font. You can do that for any view in your chosen XML.
 
-**setFont("YourFont.ttf")** - This sets the font you want to use in your chosen Container/Layout.
 
-**IMPORTANT!!**
-
-The font must be put under **assets/fonts** or else it will not work.
-
-**Example:**
-
-![fonts](https://cloud.githubusercontent.com/assets/13288065/9327167/94e73fe8-45a7-11e5-8b8b-cc384f37bed8.png)
-
-Now choose your desired font and set it to **UniFont:**(Here I will chose the "OpenSansRegular.ttf")
-
-In your Activity **onCreate{}:**
-
-```
- @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        
-        UniFont.with(this).initialize(container).setFont("OpenSansRegular.ttf").apply();
-    }
-```
-
-Or in your Fragment **onViewCreated{}:**
-
-```
- @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        
-        UniFont.with(getActivity()).initialize(container).setFont("OpenSansRegular.ttf").apply();
-    }
-```
 
 **apply();** - This methos is pretty much self explanatory.
 
