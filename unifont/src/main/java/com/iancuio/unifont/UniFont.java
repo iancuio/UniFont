@@ -13,9 +13,7 @@ import java.util.Hashtable;
  */
 public class UniFont {
 
-    private int childCount;
     private String font;
-    private ViewGroup containerViewGroup;
     private Context context;
 
     public static UniFont with(Context context) {
@@ -26,26 +24,21 @@ public class UniFont {
         this.context = context;
     }
 
-    public UniFont initialize(ViewGroup view) {
-        this.containerViewGroup = view;
-        return this;
-    }
-
     public UniFont setFont(String font) {
         this.font = font;
         return this;
     }
 
-    public void apply() {
-
-        childCount = containerViewGroup.getChildCount();
-        for (int i=0; i < childCount; i++){
-            View v = containerViewGroup.getChildAt(i);
-            if (v instanceof TextView) {
-                ((TextView) v).setTypeface(TypeFaceCache.get(context, font));
+    public void apply(ViewGroup view) {
+        for (int i = 0; i < view.getChildCount(); i++) {
+            View child = view.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                apply((ViewGroup) child);
+            } else if (child != null) {
+                if (child instanceof TextView) {
+                    ((TextView) child).setTypeface(TypeFaceCache.get(context, font));
+                }
             }
         }
     }
-
-
 }
